@@ -6,4 +6,5 @@
 <a href="https://codeclimate.com/github/Olvenn/frontend-project-11/maintainability"><img src="https://api.codeclimate.com/v1/badges/1076f700922552cce549/maintainability" /></a>
 
 
-https://rss-aggregator-sigma.vercel.app/
+### Link
+https://rss-aggregator-bice.vercel.app/

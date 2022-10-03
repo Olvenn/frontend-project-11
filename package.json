@@ -1,7 +1,6 @@
 {
   "name": "frontend-project-11",
   "version": "1.0.0",
-  "type": "module",
   "description": "RSS aggregator",
   "main": "index.js",
   "scripts": {

@@ -1,3 +1,5 @@
+import onChange from 'on-change';
+
 const renderErrors = (elements, error) => {
   const { feedback, input } = elements;
   feedback.textContent = '';
@@ -33,4 +35,6 @@ const render = (elements, i18Instance) => (path, value) => {
   }
 };
 
-export default render;
+const view = (state, el, lang) => onChange(state, render(el, lang));
+
+export default view;

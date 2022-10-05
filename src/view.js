@@ -7,24 +7,25 @@ const renderErrors = (elements, error) => {
   feedback.textContent = error;
 };
 
-const renderFeeds = (elements) => {
+const renderFeeds = (elements, i18Instance) => {
   const { feedback, input } = elements;
   input.classList.remove('is-invalid');
+  feedback.textContent = '';
   feedback.classList.add('text-success');
   feedback.classList.remove('text-danger');
-  feedback.textContent = 'RSS успешно загружен';
+  feedback.textContent = i18Instance.t('rss');
   elements.form.reset();
   elements.input.focus();
 };
 
-const render = (elements) => (path, value) => {
+const render = (elements, i18Instance) => (path, value) => {
   console.log('path', path);
   switch (path) {
     case 'form.error':
       renderErrors(elements, value);
       break;
     case 'feeds':
-      renderFeeds(elements);
+      renderFeeds(elements, i18Instance);
       break;
 
     default:

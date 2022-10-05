@@ -1,19 +1,32 @@
 import * as yup from 'yup';
 import onChange from 'on-change';
+import i18next from 'i18next';
 import render from './view.js';
-
-yup.setLocale({
-  string: {
-    required: 'This field cannot be empty',
-    url: 'Please enter a valid url',
-  },
-});
-
-const schema = yup.object({
-  url: yup.string().required().url(),
-});
+import resources from './locales/index.js';
 
 const app = () => {
+  const defaultLanguage = 'ru';
+
+  const i18Instance = i18next.createInstance();
+  i18Instance.init({
+    lng: defaultLanguage,
+    debug: false,
+    resources,
+  });
+
+  yup.setLocale({
+    string: {
+      required: i18Instance.t('required.url'),
+      url: i18Instance.t('errors.url'),
+    },
+  });
+
+  const schema = yup.object({
+    url: yup.string()
+      .required()
+      .url(),
+  });
+
   const initialState = {
     form: {
       valid: true,
@@ -34,7 +47,7 @@ const app = () => {
     feedback: document.querySelector('.feedback'),
   };
 
-  const state = onChange(initialState, render(elements));
+  const state = onChange(initialState, render(elements, i18Instance));
 
   elements.form.addEventListener('submit', (evt) => {
     evt.preventDefault();

@@ -1,4 +1,3 @@
-import onChange from 'on-change';
 import i18next from 'i18next';
 import view from './view.js';
 import controller from './controller.js';
@@ -19,7 +18,7 @@ const app = () => {
       valid: true,
       processState: 'filling',
       errors: {},
-      url: null,
+      linkUrl: null,
     },
     feeds: [],
     posts: [],
@@ -34,9 +33,7 @@ const app = () => {
     feedback: document.querySelector('.feedback'),
   };
 
-  // const getwatchedState = (state, el) => onChange(state, render(el, i18Instance));
   const watchedState = view(initialState, elements, i18Instance);
-  // const watchedState = onChange(initialState, render(elements, i18Instance));
 
   controller(elements, watchedState, i18Instance);
 };

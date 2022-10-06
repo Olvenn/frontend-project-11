@@ -56,8 +56,9 @@ export default (elements, watchedState, i18Instance) => {
           url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`,
         })
           .then((response) => {
-            console.log('response', response);
-            getParsedData(response);
+            console.log(response.data.contents);
+            console.log('OK');
+            getParsedData(response.data.contents);
           })
           .catch((err) => {
             form.error = err;

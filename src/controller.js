@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import axios from 'axios';
+import getParsedData from './parser.js';
 
 export default (elements, watchedState, i18Instance) => {
   yup.setLocale({
@@ -15,6 +16,16 @@ export default (elements, watchedState, i18Instance) => {
       .url(),
   });
 
+  // schema.validate({ url: linkName }, { abortEarly: false })
+  //   .then(({ url }) => {
+  //     form.url = url;
+  //     feeds.push(url);
+  //   })
+  //   .catch((err) => {
+  //     form.valid = false;
+  //     form.error = err.message;
+  //   });
+
   elements.form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -22,24 +33,32 @@ export default (elements, watchedState, i18Instance) => {
     const linkName = formData.get(elements.input.name);
     const { form, feeds } = watchedState;
 
-    const validate1 = (link) => schema
+    const validate = (link) => schema
       .validate({ url: link }, { abortEarly: false })
       .then(({ url }) => {
-        feeds.push(url);
-        form.errors = true;
-        form.linkUrl = url;
-        console.log(Promise.resolve(url));
+        if (!feeds.includes(url)) {
+          feeds.push(url);
+          form.errors = {};
+          form.linkUrl = url;
+          console.log(Promise.resolve(url));
 
-        return Promise.resolve(url);
+          return Promise.resolve(url);
+        }
+        throw new Error(i18Instance.t('errors.rssExist'));
       })
       .catch((err) => {
         throw err;
       });
 
-    validate1(linkName)
+    validate(linkName)
       .then((url) => {
-        axios({ url })
-          .then(({ data }) => console.log(data))
+        axios({
+          url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`,
+        })
+          .then((response) => {
+            console.log('response', response);
+            getParsedData(response);
+          })
           .catch((err) => {
             form.error = err;
           });
@@ -48,15 +67,5 @@ export default (elements, watchedState, i18Instance) => {
         form.valid = false;
         form.error = err.message;
       });
-
-    // schema.validate({ url: linkName }, { abortEarly: false })
-    //   .then(({ url }) => {
-    //     form.url = url;
-    //     feeds.push(url);
-    //   })
-    //   .catch((err) => {
-    //     form.valid = false;
-    //     form.error = err.message;
-    //   });
   });
 };

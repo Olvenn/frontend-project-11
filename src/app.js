@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import view from './view.js';
+import view from './view/render.js';
 import controller from './controller.js';
 import resources from './locales/index.js';
 

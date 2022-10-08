@@ -16,31 +16,20 @@ export default (elements, watchedState, i18Instance) => {
       .url(),
   });
 
-  // schema.validate({ url: linkName }, { abortEarly: false })
-  //   .then(({ url }) => {
-  //     form.url = url;
-  //     feeds.push(url);
-  //   })
-  //   .catch((err) => {
-  //     form.valid = false;
-  //     form.error = err.message;
-  //   });
-
   elements.form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
     const linkName = formData.get(elements.input.name);
-    const { form, feeds } = watchedState;
+    const { form, feeds, posts } = watchedState;
 
     const validate = (link) => schema
       .validate({ url: link }, { abortEarly: false })
       .then(({ url }) => {
         if (!feeds.includes(url)) {
-          feeds.push(url);
           form.errors = {};
           form.linkUrl = url;
-          console.log(Promise.resolve(url));
+          console.log('url', Promise.resolve(url));
 
           return Promise.resolve(url);
         }
@@ -56,9 +45,14 @@ export default (elements, watchedState, i18Instance) => {
           url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`,
         })
           .then((response) => {
-            console.log(response.data.contents);
-            console.log('OK');
-            getParsedData(response.data.contents);
+            // console.log(response.data.contents);
+            // console.log('OK');
+            const data = getParsedData(response.data.contents);
+            const { feedData, postsData } = data;
+            feeds.push(feedData);
+            posts.push(postsData);
+            // createFeedsHtml(postsData);
+            console.log(watchedState);
           })
           .catch((err) => {
             form.error = err;

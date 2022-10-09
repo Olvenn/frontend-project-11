@@ -12,7 +12,7 @@ const createFeedsHtml = (data) => {
           </li>`))}
       </ul>
     </div>`;
-  console.log('feeds', data);
+  // console.log('feeds', data);
 
   return feeds;
 };

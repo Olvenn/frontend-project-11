@@ -16,6 +16,7 @@ export default (elements, watchedState, i18Instance) => {
     const formData = new FormData(evt.target);
     const linkName = formData.get(elements.input.name).trim();
     const { form, feeds, posts } = watchedState;
+    console.log('watchedState', posts);
 
     const schema = yup.object({
       url: yup.string()
@@ -38,7 +39,7 @@ export default (elements, watchedState, i18Instance) => {
     validate(linkName)
       .then((url) => {
         axios({
-          url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url.trim())}`,
+          url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
         })
           .then((response) => {
             const data = getParsedData(response.data.contents);

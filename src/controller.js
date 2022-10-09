@@ -28,8 +28,7 @@ export default (elements, watchedState, i18Instance) => {
       .then(({ url }) => {
         if (!feeds.includes(url)) {
           form.errors = {};
-          form.linkUrl = url;
-          console.log('url', Promise.resolve(url));
+          form.linkUrl = url.trim();
 
           return Promise.resolve(url);
         }
@@ -45,14 +44,10 @@ export default (elements, watchedState, i18Instance) => {
           url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`,
         })
           .then((response) => {
-            // console.log(response.data.contents);
-            // console.log('OK');
             const data = getParsedData(response.data.contents);
             const { feedData, postsData } = data;
-            feeds.push(feedData);
-            posts.push(postsData);
-            // createFeedsHtml(postsData);
-            console.log(watchedState);
+            posts.unshift(postsData);
+            feeds.unshift(feedData);
           })
           .catch((err) => {
             form.error = err;

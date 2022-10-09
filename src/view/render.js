@@ -11,11 +11,11 @@ const renderErrors = (elements, error) => {
   feedback.textContent = error;
 };
 
-const renderFeeds = (elements, i18Instance) => {
+const renderFeeds = (elements, i18Instance, state) => {
   const { feedback, input, feeds } = elements;
   input.classList.remove('is-invalid');
   feedback.textContent = '';
-  feeds.innerHTML = createFeedsHtml();
+  feeds.innerHTML = createFeedsHtml(state.feeds);
   feedback.classList.add('text-success');
   feedback.classList.remove('text-danger');
   feedback.textContent = i18Instance.t('rss');
@@ -23,20 +23,22 @@ const renderFeeds = (elements, i18Instance) => {
   elements.input.focus();
 };
 
-const renderPosts = (elements) => {
+const renderPosts = (elements, state) => {
   const { posts } = elements;
-  posts.innerHTML = createPostsHtml();
+  posts.innerHTML = createPostsHtml(state.posts);
 };
 
-const render = (elements, i18Instance) => (path, value) => {
-  console.log('path', path);
+const render = (elements, i18Instance, state) => (path, value) => {
+  // console.log('path', path);
   switch (path) {
     case 'form.error':
       renderErrors(elements, value);
       break;
     case 'feeds':
-      renderFeeds(elements, i18Instance);
-      renderPosts(elements);
+      renderFeeds(elements, i18Instance, state);
+      break;
+    case 'posts':
+      renderPosts(elements, state);
       break;
 
     default:
@@ -44,6 +46,6 @@ const render = (elements, i18Instance) => (path, value) => {
   }
 };
 
-const view = (state, el, lang) => onChange(state, render(el, lang));
+const view = (state, el, lang) => onChange(state, render(el, lang, state));
 
 export default view;

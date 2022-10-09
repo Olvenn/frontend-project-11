@@ -21,12 +21,12 @@ const getParsedRSS = (content) => {
     const link = item.querySelector('link').textContent;
 
     return {
-      title, description, link, idItem,
+      feedId, title, description, link, idItem,
     };
   });
   // console.log(feed, posts);
 
-  return { feedData: feed, postsData: { feedId, posts } };
+  return { feedData: feed, postsData: posts };
 };
 
 export default getParsedRSS;

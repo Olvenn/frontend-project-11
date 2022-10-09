@@ -10,29 +10,26 @@ export default (elements, watchedState, i18Instance) => {
     },
   });
 
-  const schema = yup.object({
-    url: yup.string()
-      .required()
-      .url(),
-  });
-
   elements.form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
-    const linkName = formData.get(elements.input.name);
+    const linkName = formData.get(elements.input.name).trim();
     const { form, feeds, posts } = watchedState;
+
+    const schema = yup.object({
+      url: yup.string()
+        .required()
+        .url()
+        .notOneOf(watchedState.linkUrl, i18Instance.t('errors.rssExist')),
+    });
 
     const validate = (link) => schema
       .validate({ url: link }, { abortEarly: false })
       .then(({ url }) => {
-        if (!feeds.includes(url)) {
-          form.errors = {};
-          form.linkUrl = url.trim();
+        form.errors = {};
 
-          return Promise.resolve(url);
-        }
-        throw new Error(i18Instance.t('errors.rssExist'));
+        return Promise.resolve(url.trim());
       })
       .catch((err) => {
         throw err;
@@ -41,16 +38,18 @@ export default (elements, watchedState, i18Instance) => {
     validate(linkName)
       .then((url) => {
         axios({
-          url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`,
+          url: `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url.trim())}`,
         })
           .then((response) => {
             const data = getParsedData(response.data.contents);
             const { feedData, postsData } = data;
             posts.unshift(postsData);
             feeds.unshift(feedData);
+            watchedState.linkUrl.push(url.trim());
           })
           .catch((err) => {
-            form.error = err;
+            form.error = i18Instance.t('errors.network');
+            throw err;
           });
       })
       .catch((err) => {

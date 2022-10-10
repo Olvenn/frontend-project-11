@@ -1,6 +1,6 @@
 const createPostsHtml = (data) => {
   const posts = data.flat();
-  // console.log(posts);
+  console.log('data', data);
 
   const postsHtml = `
     <div class="card border-0">

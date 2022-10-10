@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import getParsedData from './parser.js';
 
-export default (elements, watchedState, i18Instance) => {
+const controller = (elements, watchedState, i18Instance, timerId) => {
   yup.setLocale({
     string: {
       required: i18Instance.t('required.url'),
@@ -12,6 +12,8 @@ export default (elements, watchedState, i18Instance) => {
 
   elements.form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+
+    clearTimeout(timerId);
 
     const formData = new FormData(evt.target);
     const linkName = formData.get(elements.input.name).trim();
@@ -44,7 +46,7 @@ export default (elements, watchedState, i18Instance) => {
           .then((response) => {
             const data = getParsedData(response.data.contents);
             const { feedData, postsData } = data;
-            posts.unshift(postsData);
+            posts.unshift(...postsData);
             feeds.unshift(feedData);
             watchedState.linkUrl.push(url.trim());
           })
@@ -59,3 +61,5 @@ export default (elements, watchedState, i18Instance) => {
       });
   });
 };
+
+export default controller;

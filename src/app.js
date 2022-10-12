@@ -25,9 +25,7 @@ const app = () => {
     feeds: [],
     posts: [],
     currentModalId: null,
-    activeId: [],
     modalsIds: [],
-    currentPostId: '',
   };
 
   const elements = {

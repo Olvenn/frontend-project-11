@@ -18,7 +18,6 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
     const formData = new FormData(evt.target);
     const linkName = formData.get(elements.input.name).trim();
     const { form, feeds, posts } = watchedState;
-    console.log('watchedState', posts);
 
     const schema = yup.object({
       url: yup.string()

@@ -29,7 +29,6 @@ const renderPosts = (elements, state) => {
 };
 
 const render = (elements, i18Instance, state) => (path, value) => {
-  // console.log('path', path);
   switch (path) {
     case 'form.error':
       renderErrors(elements, value);

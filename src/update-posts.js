@@ -3,9 +3,7 @@ import getParsedData from './parser.js';
 
 const updatePosts = (watched) => {
   const { posts } = watched;
-
   const feedsLinks = watched.linkUrl;
-  console.log('feedsLinks', feedsLinks);
 
   feedsLinks.map((url) => axios({
     url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,

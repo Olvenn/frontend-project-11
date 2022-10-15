@@ -24,7 +24,6 @@ const getParsedRSS = (content) => {
       feedId, title, description, link, idItem,
     };
   });
-  // console.log(feed, posts);
 
   return { feedData: feed, postsData: posts };
 };

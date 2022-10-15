@@ -1,6 +1,6 @@
 export default {
   translation: {
-    rss: 'RSS успешно загружен',
+    success: 'RSS успешно загружен',
     errors: {
       required: 'Поле не должно быть пустым',
       url: 'Пожалуйста, введите валидный адрес',

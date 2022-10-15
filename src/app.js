@@ -32,6 +32,7 @@ const app = () => {
     body: document.querySelector('body'),
     form: document.querySelector('.rss-form'),
     input: document.querySelector('.form-control'),
+    submitButton: document.querySelector('[type="submit"]'),
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
     feedback: document.querySelector('.feedback'),
@@ -50,15 +51,6 @@ const app = () => {
 
   controller(elements, watchedState, i18Instance, timerId);
   controllerModal(elements, watchedState);
-
-  // const {
-  //   posts, body, modalContainer, title, description, readBtn, closeBtn
-  // } = elements;
-  // const postContaner = elements.posts;
-  // postContaner.addEventListener('click', (evt) => {
-  //   body.classList.add('modal-open');
-  //   console.log(evt.target);
-  // });
 };
 
 export default app;

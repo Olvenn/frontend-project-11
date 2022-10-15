@@ -38,6 +38,10 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
       });
 
     validate(linkName)
+      .then((link) => {
+        watchedState.processState = 'sending';
+        return link;
+      })
       .then((url) => {
         axios({
           url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
@@ -51,12 +55,14 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
           })
           .catch((err) => {
             form.error = i18Instance.t('errors.network');
+            watchedState.processState = 'filling';
             throw err;
           });
       })
       .catch((err) => {
         form.valid = false;
         form.error = err.message;
+        watchedState.processState = 'filling';
       });
   });
 };

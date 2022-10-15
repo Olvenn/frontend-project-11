@@ -11,14 +11,19 @@ const renderErrors = (elements, error) => {
   feedback.textContent = error;
 };
 
-const renderFeeds = (elements, i18Instance, state) => {
-  const { feedback, input, feeds } = elements;
+const renderSuccess = (elements, i18Instance) => {
+  const { feedback, input } = elements;
   input.classList.remove('is-invalid');
   feedback.textContent = '';
-  feeds.innerHTML = createFeedsHtml(state.feeds);
   feedback.classList.add('text-success');
   feedback.classList.remove('text-danger');
-  feedback.textContent = i18Instance.t('rss');
+  feedback.textContent = i18Instance.t('success');
+};
+
+const renderFeeds = (elements, state) => {
+  const { feeds } = elements;
+  feeds.innerHTML = createFeedsHtml(state.feeds);
+  state.processState = 'success';
   elements.form.reset();
   elements.input.focus();
 };
@@ -80,9 +85,13 @@ const render = (elements, i18Instance, state) => (path, value) => {
       renderErrors(elements, value);
       break;
     case 'feeds':
-      renderFeeds(elements, i18Instance, state);
+      renderFeeds(elements, state);
+      break;
+    case 'form.processState':
+      renderSuccess(elements, i18Instance);
       break;
     case 'posts':
+      console.log(state);
       renderPosts(elements, state);
       break;
     case 'currentModalId':

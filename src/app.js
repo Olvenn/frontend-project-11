@@ -20,7 +20,7 @@ const app = () => {
     form: {
       valid: true,
       processState: 'filling',
-      errors: {},
+      errors: '',
     },
     linkUrl: [],
     feeds: [],

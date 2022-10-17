@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
-const getParsedRSS = (content) => {
+const getParsedRSS = (content, linkName) => {
   const parser = new DOMParser();
   const parsedContent = parser.parseFromString(content, 'application/xml');
+  console.log(parsedContent);
 
   if (parsedContent.querySelector('parsererror')) {
     throw new Error('invalidRss');
@@ -11,7 +12,9 @@ const getParsedRSS = (content) => {
   const feedTitle = parsedContent.querySelector('title').textContent;
   const feedDescription = parsedContent.querySelector('description').textContent;
   const feedId = _.uniqueId();
-  const feed = { feedId, feedTitle, feedDescription };
+  const feed = {
+    feedId, feedTitle, feedDescription, linkName,
+  };
 
   const items = parsedContent.querySelectorAll('item');
   const posts = [...items].map((item) => {

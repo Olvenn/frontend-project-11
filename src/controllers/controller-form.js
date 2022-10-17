@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import axios from 'axios';
-import getParsedData from '../parser.js';
+import getParsedRSS from '../parser.js';
+import validateUrl from '../validate.js';
 
 const controllerForm = (elements, watchedState, i18Instance, timerId) => {
   yup.setLocale({
@@ -21,23 +22,7 @@ const controllerForm = (elements, watchedState, i18Instance, timerId) => {
     const linkName = formData.get(elements.input.name).trim();
     const { form, feeds, posts } = watchedState;
 
-    const schema = yup.object({
-      url: yup.string()
-        .required()
-        .url()
-        .notOneOf(watchedState.linkUrl, i18Instance.t('errors.rssExist')),
-    });
-
-    const validate = (link) => schema
-      .validate({ url: link }, { abortEarly: false })
-      .then(({ url }) => {
-        watchedState.form.errors = 2;
-
-        return Promise.resolve(url.trim());
-      })
-      .catch((err) => {
-        throw err;
-      });
+    const validate = validateUrl(watchedState, i18Instance);
 
     validate(linkName)
       .then((url) => {
@@ -45,7 +30,7 @@ const controllerForm = (elements, watchedState, i18Instance, timerId) => {
           url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
         })
           .then((response) => {
-            const data = getParsedData(response.data.contents);
+            const data = getParsedRSS(response.data.contents, linkName);
             const { feedData, postsData } = data;
             posts.unshift(...postsData);
             feeds.unshift(feedData);
@@ -61,7 +46,7 @@ const controllerForm = (elements, watchedState, i18Instance, timerId) => {
       })
       .catch((err) => {
         form.valid = false;
-        form.error = err.message;
+        form.errors = err.message;
         watchedState.form.processState = 'error';
         watchedState.processError = null;
       });

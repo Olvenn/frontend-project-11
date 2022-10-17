@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import view from './view/render.js';
-import controller from './controller.js';
-import controllerModal from './controller-modal.js';
+import controllerForm from './controllers/controller-form.js';
+import controllerModal from './controllers/controller-modal.js';
 import resources from './locales/index.js';
 import updatePosts from './update-posts.js';
 
@@ -16,6 +16,7 @@ const app = () => {
   });
 
   const initialState = {
+    processError: null,
     form: {
       valid: true,
       processState: 'filling',
@@ -49,7 +50,7 @@ const app = () => {
 
   const timerId = updatePosts(watchedState);
 
-  controller(elements, watchedState, i18Instance, timerId);
+  controllerForm(elements, watchedState, i18Instance, timerId);
   controllerModal(elements, watchedState);
 };
 

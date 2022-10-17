@@ -15,6 +15,5 @@ const controllerModal = (elements, watchedState) => {
     });
   });
 };
-console.log('ll');
 
 export default controllerModal;

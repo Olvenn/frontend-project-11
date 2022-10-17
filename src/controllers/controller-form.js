@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 import axios from 'axios';
-import getParsedData from './parser.js';
+import getParsedData from '../parser.js';
 
-const controller = (elements, watchedState, i18Instance, timerId) => {
+const controllerForm = (elements, watchedState, i18Instance, timerId) => {
   yup.setLocale({
     string: {
       required: i18Instance.t('required.url'),
@@ -12,6 +12,8 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
 
   elements.form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    watchedState.form.processState = 'sending';
+    watchedState.processError = null;
 
     clearTimeout(timerId);
 
@@ -29,7 +31,7 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
     const validate = (link) => schema
       .validate({ url: link }, { abortEarly: false })
       .then(({ url }) => {
-        form.errors = {};
+        watchedState.form.errors = 2;
 
         return Promise.resolve(url.trim());
       })
@@ -38,10 +40,6 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
       });
 
     validate(linkName)
-      .then((link) => {
-        watchedState.processState = 'sending';
-        return link;
-      })
       .then((url) => {
         axios({
           url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
@@ -52,19 +50,22 @@ const controller = (elements, watchedState, i18Instance, timerId) => {
             posts.unshift(...postsData);
             feeds.unshift(feedData);
             watchedState.linkUrl.push(url.trim());
+            watchedState.form.processState = 'success';
+            watchedState.processError = null;
           })
           .catch((err) => {
-            form.error = i18Instance.t('errors.network');
-            watchedState.processState = 'filling';
+            watchedState.processError = i18Instance.t('errors.network');
+            watchedState.form.processState = 'filling';
             throw err;
           });
       })
       .catch((err) => {
         form.valid = false;
         form.error = err.message;
-        watchedState.processState = 'filling';
+        watchedState.form.processState = 'error';
+        watchedState.processError = null;
       });
   });
 };
 
-export default controller;
+export default controllerForm;

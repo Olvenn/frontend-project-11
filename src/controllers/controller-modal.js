@@ -1,4 +1,6 @@
-const controllerModal = (elements, watchedState) => {
+import elements from '../consts.js';
+
+const controllerModal = (watchedState) => {
   const postContaner = elements.posts;
   const { closeBtn } = elements.modal;
 

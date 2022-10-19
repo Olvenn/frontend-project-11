@@ -1,5 +1,4 @@
 const createPostsHtml = (data) => {
-  const posts = data.flat();
   console.log('data', data);
 
   const postsHtml = `
@@ -8,7 +7,7 @@ const createPostsHtml = (data) => {
         <h2 class="card-title h4">Посты</h2>
       </div>
       <ul class="list-group border-0 rounded-0">
-        ${posts.map((post) => (`
+        ${data.map((post) => (`
           <li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
             <a href="${post.link}" class="fw-bold" data-id="${post.idItem}" target="_blank" rel="noopener noreferrer">
               ${post.title}
@@ -17,7 +16,7 @@ const createPostsHtml = (data) => {
               Просмотр
             </button>
           </li>
-        `))}
+        `)).join('')}
       </ul>
     </div>`;
 

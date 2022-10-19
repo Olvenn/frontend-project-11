@@ -3,7 +3,6 @@ import _ from 'lodash';
 const getParsedRSS = (content, linkName) => {
   const parser = new DOMParser();
   const parsedContent = parser.parseFromString(content, 'application/xml');
-  console.log(parsedContent);
 
   if (parsedContent.querySelector('parsererror')) {
     throw new Error('invalidRss');

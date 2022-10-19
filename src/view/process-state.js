@@ -14,13 +14,12 @@ const renderErrors = (elements, state) => {
     input.classList.add('is-invalid');
     feedback.classList.remove('text-success');
     feedback.classList.add('text-danger');
-    console.log('state.form.errors', state.form.errors);
     feedback.textContent = state.form.errors;
   }
 };
 
 const handleProcessState = (elements, processState, state, i18Instance) => {
-  console.log(state);
+  // console.log(state);
   const { submitButton } = elements;
   switch (processState) {
     case 'success':
@@ -41,7 +40,7 @@ const handleProcessState = (elements, processState, state, i18Instance) => {
       elements.submitButton.style.opacity = '0.65';
       break;
 
-    case 'filling':
+    case 'idle':
       submitButton.disabled = false;
       break;
 

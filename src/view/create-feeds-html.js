@@ -9,7 +9,7 @@ const createFeedsHtml = (data) => {
           <li class="list-group-item border-0 border-end-0">
             <h3 class="h6 m-0">${item.feedTitle}</h3>
             <p class="m-0 small text-black-50">${item.feedDescription}</p>
-          </li>`))}
+          </li>`)).join('')}
       </ul>
     </div>`;
 

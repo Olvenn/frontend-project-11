@@ -4,6 +4,7 @@ import controllerForm from './controllers/controller-form.js';
 import controllerModal from './controllers/controller-modal.js';
 import resources from './locales/index.js';
 import updatePosts from './update-posts.js';
+import elements from './consts.js';
 
 const app = () => {
   const defaultLanguage = 'ru';
@@ -19,7 +20,7 @@ const app = () => {
     processError: null,
     form: {
       valid: false,
-      processState: 'filling',
+      processState: 'idle',
       errors: '',
     },
     linkUrl: [],
@@ -29,28 +30,11 @@ const app = () => {
     modalsIds: [],
   };
 
-  const elements = {
-    body: document.querySelector('body'),
-    form: document.querySelector('.rss-form'),
-    input: document.querySelector('.form-control'),
-    submitButton: document.querySelector('[type="submit"]'),
-    feeds: document.querySelector('.feeds'),
-    posts: document.querySelector('.posts'),
-    feedback: document.querySelector('.feedback'),
-    modal: {
-      modalContainer: document.querySelector('.modal'),
-      title: document.querySelector('.modal-title'),
-      description: document.querySelector('.modal-body'),
-      readBtn: document.querySelector('.full-article'),
-      closeBtn: document.querySelectorAll('[data-bs-dismiss="modal"]'),
-    },
-  };
-
   const watchedState = view(initialState, elements, i18Instance);
 
   updatePosts(watchedState);
-  controllerForm(elements, watchedState, i18Instance);
-  controllerModal(elements, watchedState);
+  controllerForm(watchedState, i18Instance);
+  controllerModal(watchedState);
 };
 
 export default app;

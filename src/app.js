@@ -49,7 +49,6 @@ const app = () => {
   const watchedState = view(initialState, elements, i18Instance);
 
   updatePosts(watchedState);
-
   controllerForm(elements, watchedState, i18Instance);
   controllerModal(elements, watchedState);
 };

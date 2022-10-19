@@ -1,9 +1,10 @@
 import axios from 'axios';
 import getParsedData from './parser.js';
+import getFeedsLinks from './utils.js';
 
 const updatePosts = (watchedState) => {
   const { posts } = watchedState;
-  const feedsLinks = watchedState.linkUrl;
+  const feedsLinks = getFeedsLinks(watchedState);
 
   feedsLinks.map((url) => axios({
     url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,

@@ -1,11 +1,13 @@
 import * as yup from 'yup';
+import getFeedsLinks from './utils.js';
 
 const validateUrl = (state, i18Instance) => {
+  const feedsLinks = getFeedsLinks(state);
   const schema = yup.object({
     url: yup.string()
       .required()
       .url()
-      .notOneOf(state.linkUrl, i18Instance.t('errors.rssExist')),
+      .notOneOf(feedsLinks, i18Instance.t('errors.rssExist')),
   });
 
   const validate = (link) => schema

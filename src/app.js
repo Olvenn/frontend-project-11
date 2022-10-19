@@ -22,7 +22,6 @@ const app = () => {
       processState: 'filling',
       errors: '',
     },
-    linkUrl: [],
     feeds: [],
     posts: [],
     currentModalId: null,

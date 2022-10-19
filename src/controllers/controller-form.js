@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import getParsedRSS from '../parser.js';
 import validateUrl from '../validate.js';
+import getFeedsLinks from '../utils.js';
 
 const controllerForm = (elements, watchedState, i18Instance, timerId) => {
   yup.setLocale({
@@ -24,6 +25,8 @@ const controllerForm = (elements, watchedState, i18Instance, timerId) => {
 
     const validate = validateUrl(watchedState, i18Instance);
 
+    const feedsLinks = getFeedsLinks(watchedState);
+
     validate(linkName)
       .then((url) => {
         axios({
@@ -34,7 +37,7 @@ const controllerForm = (elements, watchedState, i18Instance, timerId) => {
             const { feedData, postsData } = data;
             posts.unshift(...postsData);
             feeds.unshift(feedData);
-            watchedState.linkUrl.push(url.trim());
+            feedsLinks.push(url.trim());
             watchedState.form.processState = 'success';
             watchedState.processError = null;
           })

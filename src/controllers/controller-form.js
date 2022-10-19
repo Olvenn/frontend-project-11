@@ -4,7 +4,7 @@ import getParsedRSS from '../parser.js';
 import validateUrl from '../validate.js';
 import getFeedsLinks from '../utils.js';
 
-const controllerForm = (elements, watchedState, i18Instance, timerId) => {
+const controllerForm = (elements, watchedState, i18Instance) => {
   yup.setLocale({
     string: {
       required: i18Instance.t('required.url'),
@@ -17,7 +17,7 @@ const controllerForm = (elements, watchedState, i18Instance, timerId) => {
     watchedState.form.processState = 'sending';
     watchedState.processError = null;
 
-    clearTimeout(timerId);
+    // clearTimeout(timerId);
 
     const formData = new FormData(evt.target);
     const linkName = formData.get(elements.input.name).trim();

@@ -18,10 +18,11 @@ const app = () => {
   const initialState = {
     processError: null,
     form: {
-      valid: true,
+      valid: false,
       processState: 'filling',
       errors: '',
     },
+    linkUrl: [],
     feeds: [],
     posts: [],
     currentModalId: null,
@@ -47,9 +48,9 @@ const app = () => {
 
   const watchedState = view(initialState, elements, i18Instance);
 
-  const timerId = updatePosts(watchedState);
+  updatePosts(watchedState);
 
-  controllerForm(elements, watchedState, i18Instance, timerId);
+  controllerForm(elements, watchedState, i18Instance);
   controllerModal(elements, watchedState);
 };
 

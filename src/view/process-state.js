@@ -42,6 +42,7 @@ const handleProcessState = (elements, processState, state, i18Instance) => {
 
     case 'idle':
       submitButton.disabled = false;
+      elements.submitButton.style.opacity = '1';
       break;
 
     default:

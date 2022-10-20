@@ -6,11 +6,8 @@ import renderFeeds from './render-feeds.js';
 import handleProcessError from './process-error.js';
 
 const render = (elements, i18Instance, state) => (path, value) => {
-  // console.log(path);
-
   switch (path) {
     case 'feeds':
-      // console.log(state.feeds);
       renderFeeds(elements, state);
       break;
     case 'form.processState':

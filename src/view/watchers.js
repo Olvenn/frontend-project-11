@@ -19,7 +19,7 @@ const render = (elements, i18Instance, state) => (path, value) => {
     case 'posts':
       renderPosts(elements, state);
       break;
-    case 'currentModalId':
+    case 'uiState.openPostId':
       renderModal(elements, state);
       break;
     case 'processError':
@@ -31,6 +31,6 @@ const render = (elements, i18Instance, state) => (path, value) => {
   }
 };
 
-const view = (state, el, lang) => onChange(state, render(el, lang, state));
+const watch = (state, el, lang) => onChange(state, render(el, lang, state));
 
-export default view;
+export default watch;

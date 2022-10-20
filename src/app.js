@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import view from './view/render.js';
+import watch from './view/watchers.js';
 import controllerForm from './controllers/controller-form.js';
 import controllerModal from './controllers/controller-modal.js';
 import resources from './locales/index.js';
@@ -26,11 +26,13 @@ const app = () => {
     linkUrl: [],
     feeds: [],
     posts: [],
-    currentModalId: null,
-    modalsIds: [],
+    uiState: {
+      openPostId: null,
+      visitedPosts: [],
+    },
   };
 
-  const watchedState = view(initialState, elements, i18Instance);
+  const watchedState = watch(initialState, elements, i18Instance);
 
   updatePosts(watchedState);
   controllerForm(watchedState, i18Instance);

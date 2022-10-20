@@ -5,6 +5,7 @@
 
 <a href="https://codeclimate.com/github/Olvenn/frontend-project-11/maintainability"><img src="https://api.codeclimate.com/v1/badges/1076f700922552cce549/maintainability" /></a>
 
+Rss Reader is a service for aggregating RSS feeds, with the help of which it is convenient to read a variety of sources, for example, blogs. It allows you to add an unlimited number of RSS feeds, updates them itself and adds new entries to the general stream.
 
 ### Link
 https://rss-aggregator-bice.vercel.app/

@@ -3,7 +3,7 @@ const renderModal = (elements, state) => {
   const {
     modalContainer, title, description, readBtn,
   } = elements.modal;
-  const id = state.currentModalId;
+  const id = state.uiState.openPostId;
   const openPost = state.posts.find((post) => post.idItem === id);
 
   const handleOpenClick = (post) => {

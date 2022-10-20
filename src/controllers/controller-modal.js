@@ -6,14 +6,14 @@ const controllerModal = (watchedState) => {
 
   postContaner.addEventListener('click', (evt) => {
     const { id } = evt.target.dataset;
-    const { modalsIds } = watchedState;
-    modalsIds.push(id);
-    watchedState.currentModalId = id;
+    const { visitedPosts } = watchedState.uiState;
+    visitedPosts.push(id);
+    watchedState.uiState.openPostId = id;
   });
 
   closeBtn.forEach((btn) => {
     btn.addEventListener('click', () => {
-      watchedState.currentModalId = null;
+      watchedState.uiState.openPostId = null;
     });
   });
 };

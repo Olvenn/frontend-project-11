@@ -32,7 +32,7 @@ const controllerForm = (watchedState, i18Instance) => {
           url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
         })
           .then((response) => {
-            const data = getParsedRSS(response.data.contents, linkName);
+            const data = getParsedRSS(response.data.contents, linkName, watchedState);
             const { feedData, postsData } = data;
             posts.unshift(...postsData);
             feeds.unshift(feedData);

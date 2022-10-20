@@ -1,11 +1,12 @@
 import _ from 'lodash';
+import elements from './consts.js';
 
 const getParsedRSS = (content, linkName) => {
   const parser = new DOMParser();
   const parsedContent = parser.parseFromString(content, 'application/xml');
 
   if (parsedContent.querySelector('parsererror')) {
-    throw new Error('Ресурс не содержит валидный RSS');
+    elements.feedback.textContent = 'Ресурс не содержит валидный RSS';
   }
 
   const feedTitle = parsedContent.querySelector('title').textContent;

@@ -19,7 +19,6 @@ const renderErrors = (elements, state) => {
 };
 
 const handleProcessState = (elements, processState, state, i18Instance) => {
-  // console.log(state);
   const { submitButton } = elements;
   switch (processState) {
     case 'success':

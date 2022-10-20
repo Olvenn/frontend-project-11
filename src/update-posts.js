@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getParsedData from './parser.js';
+import getParsedRSS from './parser.js';
 import getFeedsLinks from './utils.js';
 
 const updatePosts = (watchedState) => {
@@ -10,7 +10,7 @@ const updatePosts = (watchedState) => {
     url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
   })
     .then((response) => {
-      const data = getParsedData(response.data.contents);
+      const data = getParsedRSS(response.data.contents, watchedState);
       const { postsData } = data;
       const postsLinks = watchedState.posts.map((post) => post.link);
       const newPosts = postsData.filter((post) => !postsLinks.includes(post.link));

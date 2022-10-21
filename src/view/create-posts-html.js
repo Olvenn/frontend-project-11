@@ -1,6 +1,4 @@
 const createPostsHtml = (data) => {
-  console.log('data', data);
-
   const postsHtml = `
     <div class="card border-0">
       <div class="card-body">

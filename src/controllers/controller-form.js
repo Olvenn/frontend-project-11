@@ -5,7 +5,6 @@ import validateUrl from '../validate.js';
 import { getFeedsLinks, proxyUrl } from '../utils.js';
 import { elements, ProcessState } from '../consts.js';
 
-
 const controllerForm = (watchedState, i18Instance) => {
   yup.setLocale({
     string: {

@@ -1,13 +1,14 @@
 import axios from 'axios';
 import getParsedRSS from './parser.js';
-import getFeedsLinks from './utils.js';
+import { getFeedsLinks, proxyUrl } from './utils.js';
+import { TIME_UPDATA } from './consts.js';
 
 const updatePosts = (watchedState) => {
   const { posts } = watchedState;
   const feedsLinks = getFeedsLinks(watchedState);
 
   const promises = feedsLinks.map((url) => axios({
-    url: `https://allorigins.hexlet.app/get?disableCache=false&url=${encodeURIComponent(url.trim())}`,
+    url: proxyUrl(url),
   })
     .then((response) => {
       const data = getParsedRSS(response.data.contents, watchedState);
@@ -21,7 +22,7 @@ const updatePosts = (watchedState) => {
     }));
 
   Promise.all(promises)
-    .finally(() => setTimeout(() => updatePosts(watchedState), 5000));
+    .finally(() => setTimeout(() => updatePosts(watchedState), TIME_UPDATA));
 };
 
 export default updatePosts;

@@ -1,4 +1,4 @@
-import elements from '../consts.js';
+import { elements } from '../consts.js';
 
 const controllerModal = (watchedState) => {
   const postContaner = elements.posts;

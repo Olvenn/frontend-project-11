@@ -1,3 +1,5 @@
+import { ProcessState } from '../consts.js';
+
 const renderSuccess = (elements, i18Instance) => {
   const { feedback, input } = elements;
   input.classList.remove('is-invalid');
@@ -21,27 +23,23 @@ const renderErrors = (elements, state) => {
 const handleProcessState = (elements, processState, state, i18Instance) => {
   const { submitButton } = elements;
   switch (processState) {
-    case 'success':
+    case ProcessState.Success:
       renderSuccess(elements, i18Instance);
       submitButton.disabled = false;
-      elements.submitButton.style.opacity = '1';
       state.form.errors = {};
       break;
 
-    case 'error':
+    case ProcessState.Error:
       renderErrors(elements, state);
       submitButton.disabled = false;
-      elements.submitButton.style.opacity = '1';
       break;
 
-    case 'sending':
+    case ProcessState.Sending:
       submitButton.disabled = true;
-      elements.submitButton.style.opacity = '0.65';
       break;
 
-    case 'idle':
+    case ProcessState.Idle:
       submitButton.disabled = false;
-      elements.submitButton.style.opacity = '1';
       break;
 
     default:

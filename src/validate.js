@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import getFeedsLinks from './utils.js';
+import { getFeedsLinks } from './utils.js';
 
 const validateUrl = (state, i18Instance) => {
   const feedsLinks = getFeedsLinks(state);

@@ -6,7 +6,7 @@ import controllerForm from './controllers/controller-form.js';
 import controllerModal from './controllers/controller-modal.js';
 import resources from './locales/index.js';
 import updatePosts from './update-posts.js';
-import elements from './consts.js';
+import { elements } from './consts.js';
 
 const app = () => {
   const defaultLanguage = 'ru';

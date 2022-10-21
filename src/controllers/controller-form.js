@@ -41,8 +41,8 @@ const controllerForm = (watchedState, i18Instance) => {
             watchedState.processError = null;
           })
           .catch((err) => {
-            watchedState.processError = i18Instance.t('errors.network');
-            watchedState.form.processState = 'filling';
+            form.errors = err.isParsing ? i18Instance.t('errors.badRSS') : i18Instance.t('errors.network');
+            watchedState.form.processState = 'error';
             throw err;
           });
       })

@@ -7,7 +7,12 @@ const controllerModal = (watchedState) => {
   postContaner.addEventListener('click', (evt) => {
     const { id } = evt.target.dataset;
     const { visitedPosts } = watchedState.uiState;
-    visitedPosts.push(id);
+    const isExist = visitedPosts.includes(id);
+
+    if (!isExist) {
+      visitedPosts.push(id);
+    }
+
     watchedState.uiState.openPostId = id;
   });
 

@@ -5,15 +5,17 @@ const controllerModal = (watchedState) => {
   const { closeBtn } = elements.modal;
 
   postContaner.addEventListener('click', (evt) => {
-    const { id } = evt.target.dataset;
-    const { visitedPosts } = watchedState.uiState;
-    const isExist = visitedPosts.includes(id);
+    if (evt.target.dataset.bsToggle === 'modal') {
+      const { id } = evt.target.dataset;
+      const { visitedPosts } = watchedState.uiState;
+      const isExist = visitedPosts.includes(id);
 
-    if (!isExist) {
-      visitedPosts.push(id);
+      if (!isExist) {
+        visitedPosts.push(id);
+      }
+
+      watchedState.uiState.openPostId = id;
     }
-
-    watchedState.uiState.openPostId = id;
   });
 
   closeBtn.forEach((btn) => {

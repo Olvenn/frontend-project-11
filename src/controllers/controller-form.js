@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import axios from 'axios';
 import getParsedRSS from '../parser.js';
-import validateUrl from '../validate.js';
+import validateUrl from '../validateUrl.js';
 import { getFeedsLinks, proxyUrl } from '../utils.js';
 import { elements, ProcessState } from '../consts.js';
 
@@ -30,7 +30,7 @@ const controllerForm = (watchedState, i18Instance) => {
           url: proxyUrl(url),
         })
           .then((response) => {
-            const data = getParsedRSS(response.data.contents, watchedState, linkName);
+            const data = getParsedRSS(response.data.contents, linkName);
             const { feedData, postsData } = data;
             posts.unshift(...postsData);
             feeds.unshift(feedData);

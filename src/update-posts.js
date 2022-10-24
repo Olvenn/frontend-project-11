@@ -11,7 +11,7 @@ const updatePosts = (watchedState) => {
     url: proxyUrl(url),
   })
     .then((response) => {
-      const data = getParsedRSS(response.data.contents, watchedState);
+      const data = getParsedRSS(response.data.contents);
       const { postsData } = data;
       const postsLinks = watchedState.posts.map((post) => post.link);
       const newPosts = postsData.filter((post) => !postsLinks.includes(post.link));

@@ -1,8 +1,8 @@
-const createPostsHtml = (data) => {
+const createPostsHtml = (data, i18Instance) => {
   const postsHtml = `
     <div class="card border-0">
       <div class="card-body">
-        <h2 class="card-title h4">Посты</h2>
+        <h2 class="card-title h4">${i18Instance.t('posts')}</h2>
       </div>
       <ul class="list-group border-0 rounded-0">
         ${data.map((post) => (`
@@ -11,7 +11,7 @@ const createPostsHtml = (data) => {
               ${post.title}
             </a>
             <button type="button" class="btn btn-outline-primary btn-sm" data-id="${post.idItem}" data-bs-toggle="modal" data-bs-target="#modal">
-              Просмотр
+              ${i18Instance.t('view')}
             </button>
           </li>
         `)).join('')}

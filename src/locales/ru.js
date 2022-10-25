@@ -1,5 +1,8 @@
 export default {
   translation: {
+    feeds: 'Фиды',
+    posts: 'Посты',
+    view: 'Просмотр',
     success: 'RSS успешно загружен',
     errors: {
       required: 'Поле не должно быть пустым',

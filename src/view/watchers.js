@@ -8,13 +8,13 @@ import handleProcessError from './process-error.js';
 const render = (elements, i18Instance, state) => (path, value) => {
   switch (path) {
     case 'feeds':
-      renderFeeds(elements, state);
+      renderFeeds(elements, state, i18Instance);
       break;
     case 'form.processState':
       handleProcessState(elements, value, state, i18Instance);
       break;
     case 'posts':
-      renderPosts(elements, state);
+      renderPosts(elements, state, i18Instance);
       break;
     case 'uiState.openPostId':
       renderModal(elements, state);

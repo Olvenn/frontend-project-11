@@ -1,8 +1,8 @@
-const createFeedsHtml = (data) => {
+const createFeedsHtml = (data, i18Instance) => {
   const feeds = `
     <div class="card border-0">
       <div class="card-body">
-        <h2 class="card-title h4">Фиды</h2>
+        <h2 class="card-title h4">${i18Instance.t('feeds')}</h2>
       </div>
       <ul class="list-group border-0 rounded-0">
         ${data.map((item) => (`

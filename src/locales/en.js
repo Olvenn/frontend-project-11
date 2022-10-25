@@ -1,5 +1,8 @@
 export default {
   translation: {
+    feeds: 'Feeds',
+    posts: 'Posts',
+    view: 'View',
     success: 'RSS uploaded successfully',
     errors: {
       required: 'This field cannot be empty',

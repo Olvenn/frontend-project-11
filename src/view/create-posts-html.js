@@ -5,6 +5,7 @@ const createPostsHtml = (data, i18Instance) => {
         <h2 class="card-title h4">${i18Instance.t('posts')}</h2>
       </div>
       <ul class="list-group border-0 rounded-0">
+
         ${data.map((post) => (`
           <li class="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0">
             <a href="${post.link}" class="fw-bold" data-id="${post.idItem}" target="_blank" rel="noopener noreferrer">

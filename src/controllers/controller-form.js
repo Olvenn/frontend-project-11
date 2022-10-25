@@ -3,9 +3,9 @@ import axios from 'axios';
 import getParsedRSS from '../parser.js';
 import validateUrl from '../validateUrl.js';
 import { getFeedsLinks, proxyUrl } from '../utils.js';
-import { elements, ProcessState } from '../consts.js';
+import { ProcessState } from '../consts.js';
 
-const controllerForm = (watchedState, i18Instance) => {
+const controllerForm = (watchedState, i18Instance, elements) => {
   yup.setLocale({
     string: {
       required: i18Instance.t('required.url'),

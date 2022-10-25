@@ -6,7 +6,6 @@ import controllerForm from './controllers/controller-form.js';
 import controllerModal from './controllers/controller-modal.js';
 import resources from './locales/index.js';
 import updatePosts from './update-posts.js';
-import { elements } from './consts.js';
 
 const app = () => {
   const defaultLanguage = 'ru';
@@ -14,6 +13,23 @@ const app = () => {
     lng: defaultLanguage,
     debug: false,
     resources,
+  };
+
+  const elements = {
+    body: document.querySelector('body'),
+    form: document.querySelector('.rss-form'),
+    input: document.querySelector('.form-control'),
+    submitButton: document.querySelector('[type="submit"]'),
+    feeds: document.querySelector('.feeds'),
+    posts: document.querySelector('.posts'),
+    feedback: document.querySelector('.feedback'),
+    modal: {
+      modalContainer: document.querySelector('.modal'),
+      title: document.querySelector('.modal-title'),
+      description: document.querySelector('.modal-body'),
+      readBtn: document.querySelector('.full-article'),
+      closeBtn: document.querySelectorAll('[data-bs-dismiss="modal"]'),
+    },
   };
 
   const i18Instance = i18next.createInstance();
@@ -38,8 +54,8 @@ const app = () => {
   const watchedState = watch(initialState, elements, i18Instance);
 
   updatePosts(watchedState);
-  controllerForm(watchedState, i18Instance);
-  controllerModal(watchedState);
+  controllerForm(watchedState, i18Instance, elements);
+  controllerModal(watchedState, elements);
 };
 
 app();

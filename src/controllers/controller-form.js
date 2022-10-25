@@ -34,6 +34,7 @@ const controllerForm = (watchedState, i18Instance, elements) => {
             const data = getParsedRSS(response.data.contents, linkName);
             const { feedData, postsData } = data;
             const postsDataWithId = postsData.map((post) => ({ ...post, idItem: _.uniqueId() }));
+            console.log(postsDataWithId);
             posts.unshift(...postsDataWithId);
             feeds.unshift(feedData);
             feedsLinks.push(url.trim());

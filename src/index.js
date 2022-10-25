@@ -6,6 +6,7 @@ import controllerForm from './controllers/controller-form.js';
 import controllerModal from './controllers/controller-modal.js';
 import resources from './locales/index.js';
 import updatePosts from './update-posts.js';
+import renderStaticTexts from './view/render-static-texts.js';
 
 const app = () => {
   const defaultLanguage = 'ru';
@@ -23,6 +24,10 @@ const app = () => {
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
     feedback: document.querySelector('.feedback'),
+    title: document.querySelector('.display-3'),
+    subtitle: document.querySelector('.lead'),
+    placeholder: document.querySelector('[for="url-input"]'),
+    example: document.querySelector('.text-muted'),
     modal: {
       modalContainer: document.querySelector('.modal'),
       title: document.querySelector('.modal-title'),
@@ -53,6 +58,7 @@ const app = () => {
 
   const watchedState = watch(initialState, elements, i18Instance);
 
+  renderStaticTexts(elements, i18Instance);
   updatePosts(watchedState);
   controllerForm(watchedState, i18Instance, elements);
   controllerModal(watchedState, elements);

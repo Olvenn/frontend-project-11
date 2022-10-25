@@ -13,20 +13,18 @@ const getParsedRSS = (content, linkName) => {
 
   const feedTitle = parsedContent.querySelector('title').textContent;
   const feedDescription = parsedContent.querySelector('description').textContent;
-  const feedId = _.uniqueId();
   const feed = {
-    feedId, feedTitle, feedDescription, linkName,
+    feedTitle, feedDescription, linkName,
   };
 
   const items = parsedContent.querySelectorAll('item');
   const posts = [...items].map((item) => {
-    const idItem = _.uniqueId();
     const title = item.querySelector('title').textContent;
     const description = item.querySelector('description').textContent;
     const link = item.querySelector('link').textContent;
 
     return {
-      feedId, title, description, link, idItem,
+      feedTitle, title, description, link,
     };
   });
 

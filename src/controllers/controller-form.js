@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import axios from 'axios';
+import _ from 'lodash';
 import getParsedRSS from '../parser.js';
 import validateUrl from '../validateUrl.js';
 import { getFeedsLinks, proxyUrl } from '../utils.js';
@@ -32,7 +33,8 @@ const controllerForm = (watchedState, i18Instance, elements) => {
           .then((response) => {
             const data = getParsedRSS(response.data.contents, linkName);
             const { feedData, postsData } = data;
-            posts.unshift(...postsData);
+            const postsDataWithId = postsData.map((post) => ({ ...post, idItem: _.uniqueId() }));
+            posts.unshift(...postsDataWithId);
             feeds.unshift(feedData);
             feedsLinks.push(url.trim());
             watchedState.form.processState = ProcessState.Success;
